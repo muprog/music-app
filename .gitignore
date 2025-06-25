@@ -1,0 +1,27 @@
+
+**/node_modules/
+
+**/.env
+**/.env.*  # .env.local, .env.development, etc.
+
+**/dist/
+**/.next/
+**/build/
+
+**/logs
+**/*.log
+
+**/docker-compose.override.yml
+**/Dockerfile
+
+.DS_Store
+Thumbs.db
+
+**/*.tsbuildinfo
+
+.vscode/
+
+**/coverage/
+
+**/*.js
+**/*.js.map
