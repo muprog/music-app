@@ -16,7 +16,7 @@ const router = express.Router()
 router.use(
   cors({
     origin:
-      process.env.FRONTEND_URL || 'https://music-app-three-pied.vercel.app/',
+      process.env.FRONTEND_URL || 'https://music-app-three-pied.vercel.app',
     // origin: process.env.FRONTEND_URL || 'http://localhost:3000',
     credentials: true,
   })
