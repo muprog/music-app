@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: process.env.BACKEND_URL || 'https://music-app-7g1a.onrender.com/',
+  baseURL: process.env.BACKEND_URL || 'https://music-app-7g1a.onrender.com',
 })
 
 instance.interceptors.request.use((config) => {
