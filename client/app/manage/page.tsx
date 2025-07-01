@@ -74,12 +74,14 @@ export default function ManageSongs() {
       <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
         {songs.map((song) => (
           <div key={song._id} className='border rounded-lg p-4 shadow'>
-            <Image
-              src={`${baseURL}/uploads/images/${song.image}`}
-              alt={song.title}
-              fill
-              className='w-full h-48 object-cover mb-4'
-            />
+            <div className='w-full h-48'>
+              <Image
+                src={`${baseURL}/uploads/images/${song.image}`}
+                alt={song.title}
+                fill
+                className='w-full h-48 object-cover mb-4'
+              />
+            </div>
             <h2 className='text-xl font-semibold'>{song.title}</h2>
             <p className='text-gray-600'>
               {song.artist} - {song.album}
