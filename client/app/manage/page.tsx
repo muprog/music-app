@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import axios from '../../utils/axios'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 interface Song {
   _id: string
@@ -17,7 +17,6 @@ interface Song {
 
 export default function ManageSongs() {
   const [songs, setSongs] = useState<Song[]>([])
-  const router = useRouter()
 
   useEffect(() => {
     axios.get('/all').then((res) => setSongs(res.data))
@@ -32,6 +31,7 @@ export default function ManageSongs() {
       setSongs((prev) => prev.filter((song) => song._id !== id))
     } catch (error) {
       alert('Failed to delete song.')
+      console.log(error)
     }
   }
 
@@ -73,7 +73,7 @@ export default function ManageSongs() {
       <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
         {songs.map((song) => (
           <div key={song._id} className='border rounded-lg p-4 shadow'>
-            <img
+            <Image
               src={`http://localhost:5000/uploads/images/${song.image}`}
               alt={song.title}
               className='w-full h-48 object-cover mb-4'
