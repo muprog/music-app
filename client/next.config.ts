@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  images: {
+    domains: ['music-app-7g1a.onrender.com'],
+  },
+}
 
-export default nextConfig;
+export default nextConfig
