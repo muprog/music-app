@@ -78,7 +78,7 @@ export default function ManageSongs() {
               <Image
                 src={`${baseURL}/uploads/images/${song.image}`}
                 alt={song.title}
-                fill
+                // fill
                 className='w-full h-48 object-cover mb-4'
               />
             </div>
