@@ -14,6 +14,7 @@ interface Song {
   image: string
   audio: string
 }
+const baseURL = process.env.BACKEND_URL || 'https://music-app-7g1a.onrender.com'
 
 export default function ManageSongs() {
   const [songs, setSongs] = useState<Song[]>([])
@@ -74,7 +75,7 @@ export default function ManageSongs() {
         {songs.map((song) => (
           <div key={song._id} className='border rounded-lg p-4 shadow'>
             <Image
-              src={`${process.env.BACKEND_URL}/uploads/images/${song.image}`}
+              src={`${baseURL}/uploads/images/${song.image}`}
               alt={song.title}
               className='w-full h-48 object-cover mb-4'
             />
@@ -84,7 +85,7 @@ export default function ManageSongs() {
             </p>
             <audio
               controls
-              src={`${process.env.BACKEND_URL}/uploads/audio/${song.audio}`}
+              src={`${baseURL}/uploads/audio/${song.audio}`}
               className='w-full mt-3'
             />
             <div className='flex justify-between mt-4'>

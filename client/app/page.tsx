@@ -21,7 +21,7 @@ interface Stats {
   totalGenres: number
   songsPerGenre: { _id: string; count: number }[]
 }
-
+const baseURL = process.env.BACKEND_URL || 'https://music-app-7g1a.onrender.com'
 export default function Home() {
   const [songs, setSongs] = useState<Song[]>([])
   const [stats, setStats] = useState<Stats | null>(null)
@@ -97,7 +97,7 @@ export default function Home() {
             className='border rounded-lg p-4 shadow hover:shadow-lg transition'
           >
             <img
-              src={`${process.env.BACKEND_URL}/uploads/images/${song.image}`}
+              src={`${baseURL}/uploads/images/${song.image}`}
               alt={song.title}
               className='w-full h-48 object-cover rounded mb-4'
             />
@@ -108,7 +108,7 @@ export default function Home() {
             <p className='text-gray-600 italic'>{song.genre}</p>
             <audio
               controls
-              src={`${process.env.BACKEND_URL}/uploads/audio/${song.audio}`}
+              src={`${baseURL}/uploads/audio/${song.audio}`}
               className='w-full mt-4'
             >
               Your browser does not support the audio element.
