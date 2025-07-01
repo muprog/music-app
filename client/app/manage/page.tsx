@@ -59,7 +59,9 @@ export default function ManageSongs() {
   return (
     <div className='max-w-6xl mx-auto p-6'>
       <div className='flex justify-between items-center mb-6'>
-        <h1 className='text-2xl font-bold'>Manage Songs</h1>
+        <Link className='text-2xl font-bold' href={'/'}>
+          Manage Songs
+        </Link>
         <Link
           href='/create'
           className='bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700'
