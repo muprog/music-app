@@ -74,7 +74,7 @@ export default function ManageSongs() {
         {songs.map((song) => (
           <div key={song._id} className='border rounded-lg p-4 shadow'>
             <Image
-              src={`http://localhost:5000/uploads/images/${song.image}`}
+              src={`${process.env.BACKEND_URL}/uploads/images/${song.image}`}
               alt={song.title}
               className='w-full h-48 object-cover mb-4'
             />
@@ -84,7 +84,7 @@ export default function ManageSongs() {
             </p>
             <audio
               controls
-              src={`http://localhost:5000/uploads/audio/${song.audio}`}
+              src={`${process.env.BACKEND_URL}/uploads/audio/${song.audio}`}
               className='w-full mt-3'
             />
             <div className='flex justify-between mt-4'>

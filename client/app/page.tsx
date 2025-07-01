@@ -97,7 +97,7 @@ export default function Home() {
             className='border rounded-lg p-4 shadow hover:shadow-lg transition'
           >
             <img
-              src={`http://localhost:5000/uploads/images/${song.image}`}
+              src={`${process.env.BACKEND_URL}/uploads/images/${song.image}`}
               alt={song.title}
               className='w-full h-48 object-cover rounded mb-4'
             />
@@ -108,7 +108,7 @@ export default function Home() {
             <p className='text-gray-600 italic'>{song.genre}</p>
             <audio
               controls
-              src={`http://localhost:5000/uploads/audio/${song.audio}`}
+              src={`${process.env.BACKEND_URL}/uploads/audio/${song.audio}`}
               className='w-full mt-4'
             >
               Your browser does not support the audio element.
