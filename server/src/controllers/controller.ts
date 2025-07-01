@@ -164,3 +164,50 @@ export const updateSong = async (req: Request, res: Response) => {
     return res.status(500).json({ message: 'Failed to update song' })
   }
 }
+
+export const getStatistics = async (req: Request, res: Response) => {
+  try {
+    const totalSongs = await Song.countDocuments()
+    const totalArtists = await Song.distinct('artist')
+    const totalAlbums = await Song.distinct('album')
+    const totalGenres = await Song.distinct('genre')
+
+    const songsPerGenre = await Song.aggregate([
+      { $group: { _id: '$genre', count: { $sum: 1 } } },
+    ])
+
+    const songsPerArtist = await Song.aggregate([
+      {
+        $group: {
+          _id: '$artist',
+          songs: { $sum: 1 },
+          albums: { $addToSet: '$album' },
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          songs: 1,
+          albums: { $size: '$albums' },
+        },
+      },
+    ])
+
+    const songsPerAlbum = await Song.aggregate([
+      { $group: { _id: '$album', count: { $sum: 1 } } },
+    ])
+
+    res.json({
+      totalSongs,
+      totalArtists: totalArtists.length,
+      totalAlbums: totalAlbums.length,
+      totalGenres: totalGenres.length,
+      songsPerGenre,
+      songsPerArtist,
+      songsPerAlbum,
+    })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ message: 'Failed to generate statistics' })
+  }
+}

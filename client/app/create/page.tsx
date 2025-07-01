@@ -35,7 +35,7 @@ export default function CreateSong() {
         },
       })
 
-      router.push('/songs')
+      router.push('/')
     } catch (err) {
       console.error('Upload failed:', err)
       alert('Upload failed.')

@@ -8,6 +8,7 @@ const {
   deleteSong,
   getSongById,
   updateSong,
+  getStatistics,
 } = require('../controllers/controller')
 
 const router = express.Router()
@@ -39,4 +40,5 @@ router.put(
   ]),
   updateSong
 )
+router.get('/stats', getStatistics)
 export default router

@@ -1,28 +1,3 @@
-// 'use client'
-
-// import { useRouter } from 'next/navigation'
-
-// export default function Home() {
-//   const router = useRouter()
-
-//   return (
-//     <main className='flex min-h-screen flex-col items-center justify-center bg-gray-100 px-4 text-center'>
-//       <h1 className='text-4xl md:text-5xl font-bold text-gray-800 mb-4'>
-//         🎵 Welcome to Music App
-//       </h1>
-//       <p className='text-lg md:text-xl text-gray-600 mb-6'>
-//         Manage your favorite songs, albums, and artists all in one place.
-//       </p>
-//       <button
-//         onClick={() => router.push('/songs')}
-//         className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-base font-medium transition'
-//       >
-//         View Songs
-//       </button>
-//     </main>
-//   )
-// }
-
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -39,16 +14,81 @@ interface Song {
   audio: string
 }
 
+interface Stats {
+  totalSongs: number
+  totalArtists: number
+  totalAlbums: number
+  totalGenres: number
+  songsPerGenre: { _id: string; count: number }[]
+}
+
 export default function Home() {
   const [songs, setSongs] = useState<Song[]>([])
+  const [stats, setStats] = useState<Stats | null>(null)
 
   useEffect(() => {
     axios.get('/all').then((res) => setSongs(res.data))
+    axios.get('/stats').then((res) => setStats(res.data))
   }, [])
+
+  useEffect(() => {
+    const audios = document.querySelectorAll('audio')
+
+    audios.forEach((audio) => {
+      audio.addEventListener('play', () => {
+        audios.forEach((otherAudio) => {
+          if (otherAudio !== audio) {
+            otherAudio.pause()
+          }
+        })
+      })
+    })
+
+    return () => {
+      audios.forEach((audio) => {
+        audio.removeEventListener('play', () => {})
+      })
+    }
+  }, [songs])
 
   return (
     <div className='max-w-5xl mx-auto p-6'>
       <Header />
+
+      {stats && (
+        <div className='bg-gray-100 p-4 rounded shadow mb-8'>
+          <h2 className='text-2xl font-bold mb-4 text-center'>📊 Statistics</h2>
+          <div className='grid grid-cols-2 md:grid-cols-4 gap-4 text-center mb-4'>
+            <div>
+              <p className='font-semibold'>Total Songs</p>
+              <p>{stats.totalSongs}</p>
+            </div>
+            <div>
+              <p className='font-semibold'>Artists</p>
+              <p>{stats.totalArtists}</p>
+            </div>
+            <div>
+              <p className='font-semibold'>Albums</p>
+              <p>{stats.totalAlbums}</p>
+            </div>
+            <div>
+              <p className='font-semibold'>Genres</p>
+              <p>{stats.totalGenres}</p>
+            </div>
+          </div>
+          <div>
+            <h3 className='font-semibold mb-1'>Songs per Genre:</h3>
+            <ul className='list-disc list-inside'>
+              {stats.songsPerGenre.map((genre) => (
+                <li key={genre._id}>
+                  {genre._id}: {genre.count}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+
       <h1 className='text-3xl font-bold mb-6'>Songs</h1>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
         {songs.map((song) => (

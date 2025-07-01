@@ -35,6 +35,27 @@ export default function ManageSongs() {
     }
   }
 
+  useEffect(() => {
+    const audios = document.querySelectorAll('audio')
+
+    audios.forEach((audio) => {
+      audio.addEventListener('play', () => {
+        audios.forEach((otherAudio) => {
+          if (otherAudio !== audio) {
+            otherAudio.pause()
+          }
+        })
+      })
+    })
+
+    // Cleanup listeners
+    return () => {
+      audios.forEach((audio) => {
+        audio.removeEventListener('play', () => {})
+      })
+    }
+  }, [songs])
+
   return (
     <div className='max-w-6xl mx-auto p-6'>
       <div className='flex justify-between items-center mb-6'>
